@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SIMPLE CANVAS PAINT</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1>SIMPLE CANVAS PAINT</h1>
+    </header>
+    <div id="app">
+        <div id="colorpanel">
+            <center>
+                <p name="tool">Цвет</p>
+            </center>
+            <input class="jscolor {onFineChange:'update(this)'}" id="picker" onclick="this.select()" value="000000" name="input-obj" data-name="color">
+            <center>
+                <p name="tool">Палитра</p>
+            </center>
+            <div id="palletes">
+
+            </div>
+
+            <div id="erasing">
+                <center>
+                    <p name="tool">Стереть</p>
+                </center>
+                <div class="palette eraser" style="background:hsl(0, 0%, 100%)" id="erase" onclick="editor.select_color(this)"></div>
+            </div>
+            <br />
+        </div>
+
+        <div id="y-ruler" class="ruler">
+            <b id="y-marker" class="marker"></b>
+            <ul id="y-ruler-ul">
+                <li>0</li>
+                <li style="top: 99px;">100</li>
+                <li style="top: 199px;">200</li>
+                <li style="top: 299px;">300</li>
+                <li style="top: 399px;">400</li>
+                <li style="top: 499px;">500</li>
+            </ul>
+        </div>
+        <div class="resizeable" id="canvas_area">
+            <div id="x-ruler" class="ruler">
+                <b id="x-marker" class="marker"></b>
+                <ul id="x-ruler-ul">
+                    <li style="left: 101px;">100</li>
+                    <li style="left: 201px;">200</li>
+                    <li style="left: 301px;">300</li>
+                    <li style="left: 401px;">400</li>
+                    <li style="left: 501px;">500</li>
+                </ul>
+            </div>
+            <canvas id="Canvas" width="525" height="606" style="border:1px solid #000000;">
+                Не поддерживается в IE 8 и более ранних версиях</canvas>
+
+            <div id="space">
+                <div id="canvas_sizes"></div>
+                <button class="button" onclick="editor.copy()">Скопировать в буфер</button>
+                <button class="button" onclick="editor.erase()">Очистить</button>
+                <button class="button"><a href="#" onclick="editor.save()" id="download" download="picture.png">Сохранить</a></button>
+                <div id="canvas_mouse_pos">x: out<br>y: out</div>
+            </div>
+        </div>
+
+        <div id="linepanel">
+            <center>
+                <p name="tool">Толщина</p>
+            </center>
+            <form>
+                <input type="range" id="brush_size" name="amountRange" value="1" min="1" max="200" oninput="this.form.amountInput.value=this.value" onclick="editor.line_size()">
+
+                <input type="number" name="amountInput" min="1" max="200" value="1" oninput="this.form.amountRange.value=this.value" />
+            </form>
+            <center>
+                <p name="tool">Стиль кисти</p>
+                <input type="button" value="Круглая" id="round" onclick="editor.changeBrushStyle(this);"> <br />
+                <input type="button" value="Квадратная" id="square" onclick="editor.changeBrushStyle(this);"> <br />
+                <input type="button" value="Без cкругления" id="butt" onclick="editor.changeBrushStyle(this);"> <br />
+
+                <center>
+                    <p name="tool">Формы</p>
+                </center>
+                <div class="shapes shaperectangle" id="shaperectangle" onclick="editor.currentTool = 'rectangle'"></div>
+
+                <center>
+                    <p name="tool">Вид</p>
+                </center>
+                <label># <input type="checkbox" id="grider" onchange="canvas.classList.toggle('grid')"></label>
+
+            </center>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="./js/jscolor.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+
+</html>
